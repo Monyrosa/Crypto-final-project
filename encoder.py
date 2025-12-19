@@ -1,13 +1,19 @@
 from PIL import Image
 
-def hide_message(image_path, message, output_image):
-    img = Image.open(image_path)
-    img = img.convert("RGB")
+def encrypt_message(message, password):
+    encrypted = ""
+    for i in range(len(message)):
+        encrypted += chr(ord(message[i]) ^ ord(password[i % len(password)]))
+    return encrypted
+
+def hide_message(image_path, message, password, output_image):
+    img = Image.open(image_path).convert("RGB")
     width, height = img.size
 
-    # Prepare message with END marker
+    encrypted_message = encrypt_message(message, password)
     end_marker = "<END>"
-    full_message = message + end_marker
+    full_message = encrypted_message + end_marker
+
     binary_message = ''.join(format(ord(char), '08b') for char in full_message)
 
     if len(binary_message) > width * height:
@@ -24,7 +30,5 @@ def hide_message(image_path, message, output_image):
                 data_index += 1
             else:
                 img.save(output_image)
-                print(f"Message successfully hidden in {output_image}.")
+                print(f"Message successfully hidden in {output_image}")
                 return
-
-    print("Message embedding failed. Ensure the image is large enough.")
