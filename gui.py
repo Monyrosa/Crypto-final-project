@@ -34,6 +34,9 @@ def set_encode_mode():
 def set_decode_mode():
     mode_label.config(text="Mode: DECODE", fg="blue")
 
+    # 🔐 Clear sensitive info ONLY when switching to DECODE
+    clear_sensitive_fields()
+
     # Hide encode-only fields
     message_text.delete("1.0", tk.END)
     message_label.pack_forget()
@@ -46,6 +49,7 @@ def set_decode_mode():
     # Show DECODE button, hide ENCODE button
     encode_button.pack_forget()
     decode_button.pack(pady=10)
+
 
 
 def encode_image():
@@ -103,6 +107,11 @@ def decode_image():
 
     except Exception as e:
         messagebox.showerror("Error", str(e))
+
+def clear_sensitive_fields():
+    image_path_entry.delete(0, tk.END)
+    password_entry.delete(0, tk.END)
+
 
 # ---------------- GUI WINDOW ---------------- #
 

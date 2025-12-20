@@ -21,6 +21,7 @@ The system provides **two interfaces**:
 
 ## 📁 Project Structure
 
+```bash
 Crypto-final-project/
 │
 ├── main.py # CLI-based interface
@@ -30,6 +31,7 @@ Crypto-final-project/
 ├── README.md # Project documentation
 ├── Encrypted-Images/ # Output images with hidden messages
 └── test.jpg / test.png # Sample images
+```
 
 
 ---
@@ -41,10 +43,14 @@ Crypto-final-project/
 - Correct password required for decoding
 - End-of-message marker (`<END>`) for reliable extraction
 
+---
+
 ### 🖼 Steganography Features
 - Uses Least Significant Bit (LSB) technique
 - Supports PNG, JPG, and BMP images
 - PNG format recommended to avoid compression loss
+
+---
 
 ### 🖥 GUI Features
 - Encode and Decode modes
@@ -63,6 +69,7 @@ pip install -r requirements.txt
 
 
 ```
+---
 
 ## ▶️ How to Run the Project
 
@@ -150,3 +157,5 @@ Feel free to submit issues or pull requests to enhance functionality.
 ## 📧 Contact
 For questions or feedback, contact: jayyjozaa@gmail.com 
 
+---
+Final update prepared for project submission.
