@@ -2,7 +2,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from encoder import hide_message
-from decoder import reveal_message, decrypt_message
+from decoder import decrypt_message
 from PIL import Image
 
 OUTPUT_DIR = "Encrypted-Images"
@@ -17,40 +17,35 @@ def select_image():
     image_path_entry.delete(0, tk.END)
     image_path_entry.insert(0, path)
 
+def clear_sensitive_fields():
+    image_path_entry.delete(0, tk.END)
+    password_entry.delete(0, tk.END)
+
 def set_encode_mode():
     mode_label.config(text="Mode: ENCODE", fg="green")
 
-    # Show encode-only fields
     message_label.pack(pady=5)
     message_text.pack()
+
     output_label.pack(pady=5)
     output_entry.pack()
 
-    # Show ENCODE button, hide DECODE button
     decode_button.pack_forget()
-    encode_button.pack(pady=10)
-
+    encode_button.pack(pady=15)
 
 def set_decode_mode():
     mode_label.config(text="Mode: DECODE", fg="blue")
 
-    # 🔐 Clear sensitive info ONLY when switching to DECODE
     clear_sensitive_fields()
 
-    # Hide encode-only fields
-    message_text.delete("1.0", tk.END)
     message_label.pack_forget()
     message_text.pack_forget()
 
-    output_entry.delete(0, tk.END)
     output_label.pack_forget()
     output_entry.pack_forget()
 
-    # Show DECODE button, hide ENCODE button
     encode_button.pack_forget()
-    decode_button.pack(pady=10)
-
-
+    decode_button.pack(pady=15)
 
 def encode_image():
     image_path = image_path_entry.get()
@@ -108,38 +103,40 @@ def decode_image():
     except Exception as e:
         messagebox.showerror("Error", str(e))
 
-def clear_sensitive_fields():
-    image_path_entry.delete(0, tk.END)
-    password_entry.delete(0, tk.END)
-
-
 # ---------------- GUI WINDOW ---------------- #
 
 root = tk.Tk()
 root.title("Secure Image Steganography")
-root.geometry("520x520")
+root.geometry("520x560")
 root.resizable(False, False)
 
-tk.Label(root, text="Secure Image Steganography Tool",
-         font=("Arial", 16, "bold")).pack(pady=10)
+tk.Label(
+    root,
+    text="Secure Image Steganography Tool",
+    font=("Arial", 16, "bold")
+).pack(pady=10)
 
-mode_label = tk.Label(root, text="Mode: ENCODE",
-                      fg="green", font=("Arial", 10, "bold"))
+mode_label = tk.Label(root, text="Mode: ENCODE", fg="green",
+                      font=("Arial", 10, "bold"))
 mode_label.pack()
 
 mode_frame = tk.Frame(root)
 mode_frame.pack(pady=5)
 
 tk.Button(mode_frame, text="Encode Mode",
-          command=set_encode_mode, bg="#4CAF50", fg="white").pack(side="left", padx=5)
+          command=set_encode_mode,
+          bg="#4CAF50", fg="white").pack(side="left", padx=5)
 
 tk.Button(mode_frame, text="Decode Mode",
-          command=set_decode_mode, bg="#2196F3", fg="white").pack(side="left", padx=5)
+          command=set_decode_mode,
+          bg="#2196F3", fg="white").pack(side="left", padx=5)
 
 tk.Label(root, text="Image File:").pack()
 image_path_entry = tk.Entry(root, width=55)
 image_path_entry.pack(pady=3)
-tk.Button(root, text="Browse Image", command=select_image).pack()
+
+tk.Button(root, text="Browse Image",
+          command=select_image).pack()
 
 message_label = tk.Label(root, text="Secret Message (Encode Only):")
 message_label.pack(pady=5)
@@ -157,27 +154,25 @@ output_label.pack(pady=5)
 output_entry = tk.Entry(root, width=30)
 output_entry.pack()
 
-action_frame = tk.Frame(root)
-action_frame.pack(pady=15)
-
+# 🔽 BUTTONS DIRECTLY BELOW OUTPUT IMAGE
 encode_button = tk.Button(
-    action_frame,
+    root,
     text="ENCODE",
     command=encode_image,
     bg="#4CAF50",
     fg="white",
-    width=15
+    width=18
 )
 
 decode_button = tk.Button(
-    action_frame,
+    root,
     text="DECODE",
     command=decode_image,
     bg="#2196F3",
     fg="white",
-    width=15
+    width=18
 )
 
-encode_button.pack(padx=10)
+encode_button.pack(pady=15)
 
 root.mainloop()

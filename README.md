@@ -59,15 +59,47 @@ Crypto-final-project/
 - Output images automatically saved in `Encrypted-Images/`
 
 ---
+## ⚙️ Project Setup
 
-## 🛠 Requirements
-- Python **3.10 or higher**
+### 🧰 Requirements
+- Python 3.10 or higher
 
-Install all required libraries using:
+---
+
+### 🛠️ Setup Instructions
+
+#### 1️⃣ Clone the Repository
+```bash
+git clone <repository-url>
+```
+
+### 2️⃣ Navigate to the Project Directory
+```bash
+cd Crypto-final-project
+```
+
+### 3️⃣ Create a Virtual Environment (Recommended)
+```bash
+python -m venv venv
+```
+
+Activate it:
+
+Windows (PowerShell)
+
+```bash
+venv\Scripts\activate
+```
+
+Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+### 4️⃣ Install Dependencies
 ```bash
 pip install -r requirements.txt
-
-
 ```
 ---
 
@@ -158,4 +190,3 @@ Feel free to submit issues or pull requests to enhance functionality.
 For questions or feedback, contact: jayyjozaa@gmail.com 
 
 ---
-Final update prepared for project submission.

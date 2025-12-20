@@ -2,6 +2,9 @@ import os
 from encoder import hide_message
 from decoder import reveal_message
 
+OUTPUT_DIR = "Encrypted-Images"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 def show_banner():
     print(r"""
   ███████╗████████╗███████╗ ██████╗  █████╗ ███╗   ██╗ ██████╗ 
@@ -16,7 +19,6 @@ def show_banner():
 ---------------------------------------------------------------
 """)
 
-
 def show_menu():
     print("\nWelcome to Image Steganography")
     print("1. Hide a secret message in an image")
@@ -26,6 +28,7 @@ def show_menu():
 
 def main():
     show_banner()
+
     while True:
         choice = show_menu()
 
@@ -33,15 +36,18 @@ def main():
             image_path = input("Enter image file path: ")
             message = input("Enter the message you want to hide: ")
             password = input("Enter a password: ")
-            output_image = input("Enter the output image filename (e.g., hidden.png): ")
+            output_image = input("Enter output image filename (e.g., hidden.png): ")
 
-            if os.path.exists(image_path):
-                hide_message(image_path, message, password, output_image)
-            else:
+            if not os.path.exists(image_path):
                 print("The image path does not exist.")
+                continue
+
+            output_path = os.path.join(OUTPUT_DIR, output_image)
+
+            hide_message(image_path, message, password, output_path)
 
         elif choice == "2":
-            image_path = input("Enter image file path to reveal the hidden message: ")
+            image_path = input("Enter encoded image path: ")
             password = input("Enter the password: ")
 
             if os.path.exists(image_path):
